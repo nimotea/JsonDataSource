@@ -1,9 +1,13 @@
 package json;
 
+
+import lombok.Data;
+
 /**
  * @author hanzhou
  * date 2023/9/9 23:41
  */
+@Data
 public class JSONDataSource {
 
     String name;
@@ -12,7 +16,6 @@ public class JSONDataSource {
     boolean useAdvancedConfig = true;
     boolean extractInDatabase = true;
     Object mappingConfig =null;
-
     Connection connection;
 
 }

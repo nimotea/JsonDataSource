@@ -1,12 +1,15 @@
 package json;
 
+import lombok.Data;
+
 /**
  * @author hanzhou
  * date 2023/9/9 23:44
  */
+@Data
 public class Connection {
-    String SIP="0";
-    String SourceType="Web";
-    WebConfigWithMultiBaseURI webConfigWithMultiBaseURI;
-    SchemaDefinition schemaDefinition;
+   private String SIP="0";
+   private String SourceType="Web";
+   private WebConfigWithMultiBaseURI webConfigWithMultiBaseURI;
+   private SchemaDefinition schemaDefinition;
 }
