@@ -1,3 +1,9 @@
+import json.*;
+import json.enums.DataLocatorType;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  * @author hanzhou
  * date 2023/9/9 23:37
@@ -19,6 +25,24 @@ test post info
 
 public class TestCreatJSONDataSource {
     public static void main(String[] args) {
+
+
+        JSONDataSource jsonSource = new JSONDataSource();
+        jsonSource.setName("测试JSON链接");
+        jsonSource.addBaseURI(new BaseURI(){{
+            setName("基本接口");
+            setUri("https://jsonplaceholder.typicode.com");
+        }});
+
+        jsonSource.addEndpoint(new Endpoint(){{
+            setName("测试接口1");
+            setBaseURIName("基本接口");
+            setURI("/posts");
+            setDataLocatorType(DataLocatorType.JsonPath);
+            setDataLocatorJsonPath("$.[*]");
+        }});
+
+        System.out.println(jsonSource.getPostBody());
 
     }
 }

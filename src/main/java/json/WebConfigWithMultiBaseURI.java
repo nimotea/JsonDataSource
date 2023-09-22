@@ -12,7 +12,13 @@ import java.util.List;
 @Data
 public class WebConfigWithMultiBaseURI {
    private List<Object> authorizations = new ArrayList<>();
-   private List<BaseURI> baseURIs;
+   private List<BaseURI> baseURIs = new ArrayList<>();
    private String DataType = "JSON";
-   private List<Endpoint> endpoints;
+   private List<Endpoint> endpoints = new ArrayList<>();
+
+   public void addBaseURIS(BaseURI baseURI){
+      this.baseURIs.add(baseURI);
+   }
+
+   public void addEndpoints(Endpoint endpoint){this.endpoints.add(endpoint);}
 }
