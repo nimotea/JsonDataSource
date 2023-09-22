@@ -1,5 +1,6 @@
 package json;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import json.enums.DataLocatorType;
 import lombok.Data;
 
@@ -9,6 +10,8 @@ import lombok.Data;
  */
 @Data
 public class DataLocator {
+   @JSONField (name = "Type")
    private DataLocatorType type;
+   @JSONField (name = "Value")
    private String value;
 }

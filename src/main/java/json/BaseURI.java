@@ -1,5 +1,6 @@
 package json;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 import json.common.Parameter;
@@ -16,12 +17,20 @@ import java.util.Map;
  */
 @Data
 public class BaseURI {
-    Logger logger = LoggerFactory.getLogger(BaseURI.class);
+    @JSONField(serialize = false)
+    private Logger logger = LoggerFactory.getLogger(BaseURI.class);
 
-    String name;
-    URI uri;
-    List<Parameter> parameters;
-    Map<String,Object> headers;
+    @JSONField(name = "Name")
+    private String name;
+
+    @JSONField(name = "URI")
+    private URI uri;
+
+    @JSONField(name = "Parameters")
+    private List<Parameter> parameters;
+
+    @JSONField(name = "Headers")
+    private Map<String,Object> headers;
 
     public void setUri(String uri)  {
         try {

@@ -2,6 +2,9 @@ package json;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
+import json.util.HttpUtil;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -22,7 +25,9 @@ public class JSONDataSource {
     private boolean useAdvancedConfig = true;
     private boolean extractInDatabase = true;
     private Object mappingConfig = null;
-    private Connection connection = null;
+
+    @JSONField(serialize = false)
+    private Connection connection = new Connection();
 
     public JSONDataSource() {
         this.connectionString = null;
@@ -38,10 +43,6 @@ public class JSONDataSource {
     }
 
     public void addBaseURI(BaseURI baseURI){
-        if (connection == null){
-            this.connection = new Connection();
-        }
-        createJsonDataSourceByMultiWebConfig(new WebConfigWithMultiBaseURI());
         this.connection.getWebConfigWithMultiBaseURI().addBaseURIS(baseURI);
     }
 
@@ -53,7 +54,22 @@ public class JSONDataSource {
     }
 
     public String getPostBody(){
-        return JSON.toJSONString(this);
+        this.connectionString = connection.toString();
+        JSONObject jsonDataSource = new JSONObject();
+        jsonDataSource.put("name",name);
+        jsonDataSource.put("provider",provider);
+        jsonDataSource.put("connectionString",connectionString);
+        jsonDataSource.put("useAdvancedConfig",useAdvancedConfig);
+        jsonDataSource.put("extractInDatabase",extractInDatabase);
+        jsonDataSource.put("mappingConfig",mappingConfig);
+        testConnection(jsonDataSource.toJSONString());
+        return jsonDataSource.toJSONString();
+    }
+
+    public void testConnection(String body){
+    String LOCAL_CONNECTION_URL = "http://localhost:51980/api/datasource/schemadefinition?token=8FECF4F2D358B7EFC57CD4A92305677698217BE09EBE04D29A7418FCF4BF0B34";
+        String result = HttpUtil.sendPostRequest(LOCAL_CONNECTION_URL,body);
+        System.out.println(result);
     }
 
 }
