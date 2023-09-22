@@ -10,6 +10,6 @@ import lombok.Data;
 public class Connection {
    private String SIP="0";
    private String SourceType="Web";
-   private WebConfigWithMultiBaseURI webConfigWithMultiBaseURI;
+   private WebConfigWithMultiBaseURI webConfigWithMultiBaseURI = new WebConfigWithMultiBaseURI();
    private SchemaDefinition schemaDefinition;
 }
